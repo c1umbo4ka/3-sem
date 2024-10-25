@@ -4,7 +4,7 @@
 
 template <typename T>
 class Vector {
-protected:
+private:
     T* data;                  
     std::size_t size;         
     std::size_t capacity;     
