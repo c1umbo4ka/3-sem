@@ -1,5 +1,6 @@
 ﻿#include "../Domain/Vector.h"
 #include <iostream>
+#include <limits>
 #include <locale>
 
 void display_menu() {
@@ -20,12 +21,28 @@ void handle_vector_operations(Vector<T>& vec) {
         display_menu();
         std::cin >> choice;
 
+        // Проверка на корректность ввода
+        if (std::cin.fail()) {
+            std::cin.clear();  // Сбросить флаг ошибки
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Очистить буфер ввода
+            std::cout << "Некорректный ввод. Попробуйте снова.\n";
+            continue;
+        }
+
         switch (choice) {
         case 1:
             std::cout << "Введите значение для добавления: ";
             std::cin >> value;
-            vec.push_back(value);
-            std::cout << "Элемент " << value << " добавлен.\n";
+
+            if (std::cin.fail()) {  // Проверка корректности типа для значения
+                std::cin.clear();
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                std::cout << "Некорректный ввод. Попробуйте снова.\n";
+            }
+            else {
+                vec.push_back(value);
+                std::cout << "Элемент " << value << " добавлен.\n";
+            }
             break;
 
         case 2:
@@ -56,8 +73,17 @@ void handle_vector_operations(Vector<T>& vec) {
 int main() {
     setlocale(LC_ALL, "RU");
     int type_choice;
+
     std::cout << "Выберите тип данных:\n1. int\n2. double\n3. char\nВаш выбор: ";
     std::cin >> type_choice;
+
+    // Проверка корректности ввода для выбора типа данных
+    if (std::cin.fail() || type_choice < 1 || type_choice > 3) {
+        std::cin.clear();
+        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+        std::cout << "Некорректный выбор типа. Перезапустите программу и выберите правильный тип.\n";
+        return 1;
+    }
 
     if (type_choice == 1) {
         Vector<int> vec;
@@ -70,9 +96,6 @@ int main() {
     else if (type_choice == 3) {
         Vector<char> vec;
         handle_vector_operations(vec);
-    }
-    else {
-        std::cout << "Некорректный выбор типа.\n";
     }
 
     return 0;
