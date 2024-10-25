@@ -11,32 +11,34 @@ void display_menu() {
     std::cout << "Выберите опцию: ";
 }
 
-int main() {
-    Vector<int> vec;
-    int choice;      
-    int value; 
-    setlocale(LC_ALL, "RU");
+template <typename T>
+void handle_vector_operations(Vector<T>& vec) {
+    int choice;
+    T value;
 
     do {
-        display_menu();              
-        std::cin >> choice;         
+        display_menu();
+        std::cin >> choice;
 
         switch (choice) {
         case 1:
             std::cout << "Введите значение для добавления: ";
             std::cin >> value;
-            vec.push_back(value);  
+            vec.push_back(value);
             std::cout << "Элемент " << value << " добавлен.\n";
             break;
 
         case 2:
-            vec.pop_back();  
+            vec.pop_back();
             std::cout << "Последний элемент удален.\n";
             break;
 
         case 3:
-            if (true) { 
+            try {
                 std::cout << "Последний элемент: " << vec.back() << std::endl;
+            }
+            catch (const std::out_of_range& e) {
+                std::cout << e.what() << std::endl;
             }
             break;
 
@@ -48,7 +50,30 @@ int main() {
             std::cout << "Некорректный выбор. Попробуйте снова.\n";
             break;
         }
-    } while (choice != 4);  
+    } while (choice != 4);
+}
+
+int main() {
+    setlocale(LC_ALL, "RU");
+    int type_choice;
+    std::cout << "Выберите тип данных:\n1. int\n2. double\n3. char\nВаш выбор: ";
+    std::cin >> type_choice;
+
+    if (type_choice == 1) {
+        Vector<int> vec;
+        handle_vector_operations(vec);
+    }
+    else if (type_choice == 2) {
+        Vector<double> vec;
+        handle_vector_operations(vec);
+    }
+    else if (type_choice == 3) {
+        Vector<char> vec;
+        handle_vector_operations(vec);
+    }
+    else {
+        std::cout << "Некорректный выбор типа.\n";
+    }
 
     return 0;
 }
