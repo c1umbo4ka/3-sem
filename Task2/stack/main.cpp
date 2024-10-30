@@ -25,22 +25,21 @@ int main() {
 
     if (type_choice == 1) {
         Vector<int> vec;
-        VectorOperations<int> vec_ops(vec);
+        VectorOperations<int> vec_ops;
         handle_vector_operations(vec, vec_ops);
     }
     else if (type_choice == 2) {
         Vector<double> vec;
-        VectorOperations<double> vec_ops(vec);
+        VectorOperations<double> vec_ops;  
         handle_vector_operations(vec, vec_ops);
     }
     else if (type_choice == 3) {
         Vector<char> vec;
-        VectorOperations<char> vec_ops(vec);
+        VectorOperations<char> vec_ops;  
         handle_vector_operations(vec, vec_ops);
     }
     return 0;
 }
-
 
 void display_menu() {
     std::cout << "\n=== Меню ===\n";
@@ -86,7 +85,6 @@ void handle_vector_operations(Vector<T>& vec, VectorOperations<T>& vec_ops) {
 
         case 2:
             vec_ops.pop_back();
-            std::cout << "Последний элемент удален.\n";
             break;
 
         case 3:
