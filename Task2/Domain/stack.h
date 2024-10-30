@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include "Vector.h"
 #include <stdexcept>
 #include <iostream>
@@ -36,7 +36,7 @@ void VectorOperations<T>::pop_back() {
         vec.decrease_size();
     }
     else {
-        std::cout << "Вектор пуст, удаление невозможно." << std::endl;
+        std::cout << "Р’РµРєС‚РѕСЂ РїСѓСЃС‚, СѓРґР°Р»РµРЅРёРµ РЅРµРІРѕР·РјРѕР¶РЅРѕ." << std::endl;
     }
 }
 
@@ -46,13 +46,13 @@ T& VectorOperations<T>::back() const {
         return vec.get_data()[vec.get_size() - 1];
     }
     else {
-        throw std::out_of_range("Вектор пуст, доступ невозможен.");
+        throw std::out_of_range("Р’РµРєС‚РѕСЂ РїСѓСЃС‚, РґРѕСЃС‚СѓРї РЅРµРІРѕР·РјРѕР¶РµРЅ.");
     }
 }
 
 template <typename T>
 void VectorOperations<T>::display_vector_state() const {
-    std::cout << "Текущий размер вектора: " << vec.get_size() << "\nСодержимое вектора: ";
+    std::cout << "РўРµРєСѓС‰РёР№ СЂР°Р·РјРµСЂ РІРµРєС‚РѕСЂР°: " << vec.get_size() << "\nРЎРѕРґРµСЂР¶РёРјРѕРµ РІРµРєС‚РѕСЂР°: ";
     for (std::size_t i = 0; i < vec.get_size(); ++i) {
         std::cout << vec.get_data()[i] << " ";
     }
