@@ -4,75 +4,59 @@
 #include <iostream>
 
 /**
- * @brief Класс Vector
+ * @brief Класс VectorOperations
  */
 template <typename T>
 class VectorOperations {
 private:
 
     /**
-    * @brief Класс Vector
+    * @brief Ссылка на объект vec
     */
-    Vector<T> vec;  // Объект Vector<T>
+    Vector<T> vec; 
 
 public:
 
     /**
-    * @brief Класс Vector
+    * @brief Конструктор по умолчанию
     */
-    VectorOperations();  // Конструктор по умолчанию
+    VectorOperations(); 
 
     /**
-    * @brief Класс Vector
+    * @brief Функция добавления элемента в конец вектора.
+    * @param value Значение, которое будет добавлено в вектор.
     */
     void push_back(const T& value);
     
     /**
-    * @brief Класс Vector
+    * @brief Функция удаления элемента.
     */
     void pop_back();
     
     /**
-    * @brief Класс Vector
+    * @brief Возвращает последний элемент вектора.
+    * @return Последний элемент вектора.
     */
-    const T back() const;  // Изменено на const T
-    
-    /**
-    * @brief Класс Vector
-    */
-    void display_vector_state() const;
+    const T back() const;
 };
 
+
 template <typename T>
-VectorOperations<T>::VectorOperations() : vec() {}  // Инициализация объекта Vector<T>
+VectorOperations<T>::VectorOperations() : vec() {}  
+
 
 template <typename T>
 void VectorOperations<T>::push_back(const T& value) {
-    vec.increase_size();  // Увеличиваем размер вектора
-    vec.get_data()[vec.get_size() - 1] = value;  // Заполняем последний элемент
+    vec.increase_size();
+    vec.get_data()[vec.get_size() - 1] = value;
 }
 
 template <typename T>
 void VectorOperations<T>::pop_back() {
-    vec.decrease_size();  // Удаляем последний элемент
-    
+    vec.decrease_size();    
 }
 
 template <typename T>
 const T VectorOperations<T>::back() const {
-    if (vec.get_size() > 0) {
-        return vec.get_data()[vec.get_size() - 1];  // Возвращаем последний элемент
-    }
-    else {
-        throw std::out_of_range("Вектор пуст, доступ невозможен.");
-    }
-}
-
-template <typename T>
-void VectorOperations<T>::display_vector_state() const {
-    std::cout << "Текущий размер вектора: " << vec.get_size() << "\nСодержимое вектора: ";
-    for (std::size_t i = 0; i < vec.get_size(); ++i) {
-        std::cout << vec.get_data()[i] << " ";
-    }
-    std::cout << std::endl;
+    return vec.get_data()[vec.get_size() - 1];
 }

@@ -46,8 +46,7 @@ void display_menu() {
     std::cout << "1. Добавить элемент (push_back)\n";
     std::cout << "2. Удалить последний элемент (pop_back)\n";
     std::cout << "3. Показать последний элемент (back)\n";
-    std::cout << "4. Показать текущее состояние вектора\n";
-    std::cout << "5. Выйти\n";
+    std::cout << "4. Выйти\n";
     std::cout << "Выберите опцию: ";
 }
 
@@ -95,12 +94,7 @@ void handle_vector_operations(Vector<T>& vec, VectorOperations<T>& vec_ops) {
                 std::cout << e.what() << std::endl;
             }
             break;
-
         case 4:
-            vec_ops.display_vector_state();
-            break;
-
-        case 5:
             std::cout << "Выход из программы.\n";
             break;
 
@@ -108,5 +102,5 @@ void handle_vector_operations(Vector<T>& vec, VectorOperations<T>& vec_ops) {
             std::cout << "Некорректный выбор. Попробуйте снова.\n";
             break;
         }
-    } while (choice != 5);
+    } while (choice != 4);
 }
