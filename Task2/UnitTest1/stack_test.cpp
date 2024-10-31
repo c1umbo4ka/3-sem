@@ -1,4 +1,4 @@
-#include "pch.h"
+п»ї#include "pch.h"
 #include "CppUnitTest.h"
 #include "../Domain/stack.h"
 #include "../Domain/vector.h"
@@ -15,7 +15,7 @@ namespace UnitTest1
         {
             VectorOperations<int> vecOps;
             vecOps.push_back(5);
-            Assert::AreEqual(5, vecOps.back(), L"Ошибка: Некорректное значение последнего элемента после добавления.");
+            Assert::AreEqual(5, vecOps.back(), L"РћС€РёР±РєР°: РќРµРєРѕСЂСЂРµРєС‚РЅРѕРµ Р·РЅР°С‡РµРЅРёРµ РїРѕСЃР»РµРґРЅРµРіРѕ СЌР»РµРјРµРЅС‚Р° РїРѕСЃР»Рµ РґРѕР±Р°РІР»РµРЅРёСЏ.");
         }
 
         TEST_METHOD(TestPopBack)
@@ -23,14 +23,14 @@ namespace UnitTest1
             VectorOperations<int> vecOps;
             vecOps.push_back(5);
             vecOps.pop_back();
-            Assert::ExpectException<std::out_of_range>([&vecOps]() { vecOps.back(); }, L"Ошибка: Доступ к элементу из пустого стека не вызвал исключение.");
+            Assert::ExpectException<std::out_of_range>([&vecOps]() { vecOps.back(); }, L"РћС€РёР±РєР°: Р”РѕСЃС‚СѓРї Рє СЌР»РµРјРµРЅС‚Сѓ РёР· РїСѓСЃС‚РѕРіРѕ СЃС‚РµРєР° РЅРµ РІС‹Р·РІР°Р» РёСЃРєР»СЋС‡РµРЅРёРµ.");
         }
 
         TEST_METHOD(TestBack)
         {
             VectorOperations<int> vecOps;
             vecOps.push_back(10);
-            Assert::AreEqual(10, vecOps.back(), L"Ошибка: Некорректное значение после добавления элемента.");
+            Assert::AreEqual(10, vecOps.back(), L"РћС€РёР±РєР°: РќРµРєРѕСЂСЂРµРєС‚РЅРѕРµ Р·РЅР°С‡РµРЅРёРµ РїРѕСЃР»Рµ РґРѕР±Р°РІР»РµРЅРёСЏ СЌР»РµРјРµРЅС‚Р°.");
         }
     };
 }
