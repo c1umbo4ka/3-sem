@@ -29,6 +29,17 @@ private:
     */
     void resize();
 
+    /**
+    * @brief Класс Vector
+    */
+    void increase_size();
+
+    /**
+    * @brief Класс Vector
+    * @throws std::out_of_range Если вектор пуст, выбрасывается исключение.
+    */
+    void decrease_size();
+
 public:
     
     /**
@@ -66,18 +77,6 @@ public:
     * @brief Деструктор.
     */
     ~Vector();
-
-    /**
-    * @brief Функция возврата указателя на данные вектора.
-    * @return Указатель на массив данных.
-    */
-    T* get_data();
-
-    /**
-    * @brief Функция возврата констанстного указателя на данные вектора.
-    * @return Указатель на массив данных.
-    */
-    const T* get_data() const; 
     
     /**
     * @brief Функция возврата размера вектора.
@@ -93,15 +92,19 @@ public:
     std::size_t get_capacity() const;
 
     /**
-    * @brief Класс Vector
+    * @brief Оператор для доступа к элементам вектора.
+    * @param index Индекс элемента.
+    * @return Ссылка на элемент с указанным индексом.
+    * @throws std::out_of_range Если индекс выходит за границы.
     */
-    void increase_size();
+    T& operator[](std::size_t index);
+    const T& operator[](std::size_t index) const;
 
     /**
-    * @brief Класс Vector
-    * @throws std::out_of_range Если вектор пуст, выбрасывается исключение.
+    * @brief Дружественный класс.
     */
-    void decrease_size();
+    template <typename U>
+    friend class VectorOperations;
 };
 
 
@@ -163,18 +166,6 @@ Vector<T>::~Vector() {
 
 
 template <typename T>
-T* Vector<T>::get_data() {
-    return data;
-}
-
-
-template <typename T>
-const T* Vector<T>::get_data() const {
-    return data;
-}
-
-
-template <typename T>
 std::size_t Vector<T>::get_size() const {
     if (size > 0) {
         return size;
@@ -222,6 +213,22 @@ void Vector<T>::decrease_size() {
         std::cout << "Последний элемент удален.\n";
     }
     else {
-        std::cout << "Вектор пуст. Удаление невозможно.\n";
+        throw std::out_of_range("Вектор пуст, удаление невозможно.");
     }
+}
+
+template <typename T>
+T& Vector<T>::operator[](std::size_t index) {
+    if (index >= size) {
+        throw std::out_of_range("Индекс за пределами вектора.");
+    }
+    return data[index];
+}
+
+template <typename T>
+const T& Vector<T>::operator[](std::size_t index) const {
+    if (index >= size) {
+        throw std::out_of_range("Индекс за пределами вектора.");
+    }
+    return data[index];
 }

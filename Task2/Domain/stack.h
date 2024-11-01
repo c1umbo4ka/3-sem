@@ -48,15 +48,15 @@ VectorOperations<T>::VectorOperations() : vec() {}
 template <typename T>
 void VectorOperations<T>::push_back(const T& value) {
     vec.increase_size();
-    vec.get_data()[vec.get_size() - 1] = value;
+    vec[vec.get_size() - 1] = value;
 }
 
 template <typename T>
 void VectorOperations<T>::pop_back() {
-    vec.decrease_size();    
+    vec.decrease_size();
 }
 
 template <typename T>
 const T VectorOperations<T>::back() const {
-    return vec.get_data()[vec.get_size() - 1];
+    return vec[vec.get_size() - 1];
 }
