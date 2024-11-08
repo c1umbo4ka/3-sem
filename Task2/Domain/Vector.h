@@ -105,6 +105,7 @@ public:
     */
     template <typename U>
     friend class VectorOperations;
+    friend class VectorTests;
 };
 
 

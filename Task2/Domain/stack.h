@@ -13,7 +13,8 @@ private:
     /**
     * @brief Ссылка на объект vec
     */
-    Vector<T> vec; 
+    Vector<T> vec;
+    friend class VectorTests;
 
 public:
 
