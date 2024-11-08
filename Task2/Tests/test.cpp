@@ -44,16 +44,16 @@ TEST(copy_constructor_vectors_true) {
     EXPECT_EQ(vec_ops2.back(), 3);
 }
 
-//TEST(move_constructor_vectors_true) {
-//    Vector<int> vec1;
-//    vec1.push_back(10);
-//    vec1.push_back(20);
-//
-//    Vector<int> vec2 = std::move(vec1);
-//
-//    EXPECT_EQ(vec2.get_size(), 2);
-//    EXPECT_EQ(vec2[0], 10);
-//    EXPECT_EQ(vec2[1], 20);
-//
-//    EXPECT_EQ(vec1.get_size(), 0);
-//}
+TEST(move_constructor_vectors_true) {
+    Vector<int> vec1;
+    vec1.push_back(10);
+    vec1.push_back(20);
+
+    Vector<int> vec2 = std::move(vec1);
+
+    EXPECT_EQ(vec2.get_size(), 2);
+    EXPECT_EQ(vec2[0], 10);
+    EXPECT_EQ(vec2[1], 20);
+
+    EXPECT_EQ(vec1.get_size(), 0);
+}
