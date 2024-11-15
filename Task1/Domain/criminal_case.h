@@ -1,26 +1,26 @@
 ﻿#pragma once
 #include "Case.h"
 
-class CriminalCase : public Case {
-    std::string convictName;
-    std::string detectiveName;
-    std::string crimeArticle;
+class criminal_case : public Case {
+    std::string convict_name;
+    std::string detective_name;
+    std::string crime_article;
 
 public:
-    CriminalCase(const std::string& convict, const std::string& detective, const std::string& article);
-    std::string getInfo() const override;
-    std::string getConvictName() const override;
-    std::string getDetectiveName() const override;
-    std::string getCrimeArticle() const override;
+    criminal_case(const std::string& convict, const std::string& detective, const std::string& article);
+    std::string get_info() const override;
+    std::string get_convict_name() const override;
+    std::string get_detective_name() const override;
+    std::string get_crime_article() const override;
 };
 
-CriminalCase::CriminalCase(const std::string& convict, const std::string& detective, const std::string& article)
-    : convictName(convict), detectiveName(detective), crimeArticle(article) {}
+criminal_case::criminal_case(const std::string& convict, const std::string& detective, const std::string& article)
+    : convict_name(convict), detective_name(detective), crime_article(article) {}
 
-std::string CriminalCase::getInfo() const {
-    return "Осужденный: " + convictName + ", Следователь: " + detectiveName + ", Статья: " + crimeArticle;
+std::string criminal_case::get_info() const {
+    return "Осужденный: " + convict_name + ", Следователь: " + detective_name + ", Статья: " + crime_article;
 }
 
-std::string CriminalCase::getConvictName() const { return convictName; }
-std::string CriminalCase::getDetectiveName() const { return detectiveName; }
-std::string CriminalCase::getCrimeArticle() const { return crimeArticle; }
+std::string criminal_case::get_convict_name() const { return convict_name; }
+std::string criminal_case::get_detective_name() const { return detective_name; }
+std::string criminal_case::get_crime_article() const { return crime_article; }

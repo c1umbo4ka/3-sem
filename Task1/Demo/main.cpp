@@ -4,7 +4,7 @@
 #include "../Domain/Archive.h"
 
 
-void displayResults(const std::vector<std::string>& results) {
+void display_results(const std::vector<std::string>& results) {
     if (results.empty()) {
         std::cout << "Ничего не найдено.\n";
     }
@@ -44,37 +44,37 @@ int main() {
             std::getline(std::cin, detective);
             std::cout << "Введите статью: ";
             std::getline(std::cin, article);
-            archive.addCase(convict, detective, article);
+            archive.add_case(convict, detective, article);
             std::cout << "Дело добавлено успешно.\n";
         }
         else if (choice == 2) { 
             std::string convict;
             std::cout << "Введите имя осужденного: ";
             std::getline(std::cin, convict);
-            auto results = archive.findByConvict(convict);
+            auto results = archive.find_by_convict(convict);
             std::cout << "Результаты поиска по осужденному \"" << convict << "\":\n";
-            displayResults(results);
+            display_results(results);
         }
         else if (choice == 3) { 
             std::string detective;
             std::cout << "Введите имя следователя: ";
             std::getline(std::cin, detective);
-            auto results = archive.findByDetective(detective);
+            auto results = archive.find_by_detective(detective);
             std::cout << "Результаты поиска по следователю \"" << detective << "\":\n";
-            displayResults(results);
+            display_results(results);
         }
         else if (choice == 4) { 
             std::string article;
             std::cout << "Введите статью: ";
             std::getline(std::cin, article);
-            auto results = archive.findByArticle(article);
+            auto results = archive.find_by_article(article);
             std::cout << "Результаты поиска по статье \"" << article << "\":\n";
-            displayResults(results);
+            display_results(results);
         }
         else if (choice == 5) { 
-            auto results = archive.displayAllCases();
+            auto results = archive.display_all_cases();
             std::cout << "Список всех дел:\n";
-            displayResults(results);
+            display_results(results);
         }
         else { 
             std::cout << "Неверный выбор, попробуйте снова.\n";
