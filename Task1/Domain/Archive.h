@@ -1,4 +1,5 @@
 ﻿#pragma once
+#include <iostream>
 #include <vector>
 #include <memory>
 #include <string>
@@ -10,10 +11,10 @@ class Archive {
 
 public:
     void addCase(const std::string& convict, const std::string& detective, const std::string& article);
-    void findByConvict(const std::string& convict) const;
-    void findByDetective(const std::string& detective) const;
-    void findByArticle(const std::string& article) const;
-    void displayAllCases() const;
+    std::vector<std::string> findByConvict(const std::string& convict) const;
+    std::vector<std::string> findByDetective(const std::string& detective) const;
+    std::vector<std::string> findByArticle(const std::string& article) const;
+    std::vector<std::string> displayAllCases() const;
 };
 
 void Archive::addCase(const std::string& convict, const std::string& detective, const std::string& article) {
@@ -21,51 +22,42 @@ void Archive::addCase(const std::string& convict, const std::string& detective, 
     std::cout << "Дело добавлено: " << convict << ", " << detective << ", статья: " << article << std::endl;
 }
 
-void Archive::findByConvict(const std::string& convict) const {
-    bool found = false;
+std::vector<std::string> Archive::findByConvict(const std::string& convict) const {
+    std::vector<std::string> results;
     for (const auto& caseItem : cases) {
         if (caseItem->getConvictName() == convict) {
-            std::cout << "Найдено дело: " << caseItem->getInfo() << std::endl;
-            found = true;
+            results.push_back(caseItem->getInfo());
         }
     }
-    if (!found) {
-        std::cout << "Дело с осужденным " << convict << " не найдено.\n";
-    }
+    return results;
 }
 
-void Archive::findByDetective(const std::string& detective) const {
-    bool found = false;
-    std::cout << "Дела, в которых участвует следователь " << detective << ":\n";
+std::vector<std::string> Archive::findByDetective(const std::string& detective) const {
+    std::vector<std::string> results;
     for (const auto& caseItem : cases) {
         if (caseItem->getDetectiveName() == detective) {
-            std::cout << caseItem->getInfo() << std::endl;
-            found = true;
+            results.push_back(caseItem->getInfo());
         }
     }
-    if (!found) {
-        std::cout << "Дела со следователем " << detective << " не найдены.\n";
-    }
+    return results;
 }
 
-void Archive::findByArticle(const std::string& article) const {
-    bool found = false;
-    std::cout << "Дела по статье " << article << ":\n";
+std::vector<std::string> Archive::findByArticle(const std::string& article) const {
+    std::vector<std::string> results;
     for (const auto& caseItem : cases) {
         if (caseItem->getCrimeArticle() == article) {
-            std::cout << caseItem->getInfo() << std::endl;
-            found = true;
+            results.push_back(caseItem->getInfo());
         }
     }
-    if (!found) {
-        std::cout << "Дела по статье " << article << " не найдены.\n";
-    }
+    return results;
 }
 
-void Archive::displayAllCases() const {
-    std::cout << "Список всех дел:\n";
+std::vector<std::string> Archive::displayAllCases() const {
+    std::vector<std::string> results;
     for (const auto& caseItem : cases) {
-        std::cout << caseItem->getInfo() << std::endl;
+        results.push_back(caseItem->getInfo());
     }
+    return results;
 }
+
 
