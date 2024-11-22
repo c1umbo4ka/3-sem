@@ -7,7 +7,6 @@
 
 void display_results(const std::vector<std::string>& results);
 
-int get_choice();
 
 int main() {
     setlocale(LC_ALL, "RU");
@@ -24,14 +23,14 @@ int main() {
         std::cout << "6. Выйти\n";
 
         
-            choice = get_choice();
+        std::cin >> choice;
         
         std::cin.ignore();
 
         
             if (choice == 6) {
                 std::cout << "Выход из программы...\n";
-                break;
+                return 0;
             }
 
             if (choice == 1) {
@@ -97,15 +96,3 @@ void display_results(const std::vector<std::string>& results) {
     }
 }
 
-int get_choice() {
-    int choice;
-    std::cin >> choice;
-        if (std::cin.fail()) {
-            std::cin.clear(); 
-            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            throw std::out_of_range("Ошибка: ввод должен быть целым числом.");
-        }
-
-        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-        return choice;
-}
