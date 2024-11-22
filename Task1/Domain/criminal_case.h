@@ -1,5 +1,5 @@
 ﻿#pragma once
-#include "Case.h"
+#include "case.h"
 
 class criminal_case : public Case {
     std::string convict_name;

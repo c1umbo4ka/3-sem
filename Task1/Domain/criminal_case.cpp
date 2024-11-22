@@ -1,5 +1,5 @@
 ﻿#include "criminal_case.h"
-#include "Case.h"
+#include "case.h"
 
 criminal_case::criminal_case(const std::string& convict, const std::string& detective, const std::string& article)
     : convict_name(convict), detective_name(detective), crime_article(article) {}

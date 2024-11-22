@@ -3,7 +3,7 @@
 #include <vector>
 #include <memory>
 #include <string>
-#include "Case.h"
+#include "case.h"
 #include "criminal_case.h"
 
 class Archive {

@@ -1,6 +1,6 @@
-﻿#include "Archive.h"
+﻿#include "archive.h"
 #include "criminal_case.h"
-#include "Case.h"
+#include "case.h"
 
 void Archive::add_case(const std::string& convict, const std::string& detective, const std::string& article) {
     cases.push_back(std::make_shared<criminal_case>(convict, detective, article));

@@ -1,8 +1,7 @@
 ﻿#include <iostream>
 #include <string>
 #include <locale>
-#include "../Domain/Archive.cpp"
-#include "../Domain/criminal_case.cpp"
+#include "../Domain/Archive.h"
 
 
 void display_results(const std::vector<std::string>& results);
