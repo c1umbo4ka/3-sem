@@ -128,13 +128,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="Archive.h" />
-    <ClInclude Include="Case.h" />
+    <ClInclude Include="archive.h" />
+    <ClInclude Include="case.h" />
     <ClInclude Include="criminal_case.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Archive.cpp" />
-    <ClCompile Include="Case.cpp" />
+    <ClCompile Include="archive.cpp" />
+    <ClCompile Include="case.cpp" />
     <ClCompile Include="criminal_case.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

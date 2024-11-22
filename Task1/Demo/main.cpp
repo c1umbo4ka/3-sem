@@ -1,7 +1,7 @@
 ﻿#include <iostream>
 #include <string>
 #include <locale>
-#include "../Domain/Archive.h"
+#include "../Domain/archive.h"
 
 
 void display_results(const std::vector<std::string>& results);
@@ -9,7 +9,7 @@ void display_results(const std::vector<std::string>& results);
 
 int main() {
     setlocale(LC_ALL, "RU");
-    Archive archive; 
+    archive archive; 
     int choice;
     try {
     while (true) {

@@ -6,7 +6,7 @@
 #include "case.h"
 #include "criminal_case.h"
 
-class Archive {
+class archive {
     std::vector<std::shared_ptr<Case>> cases;
 
 public:
