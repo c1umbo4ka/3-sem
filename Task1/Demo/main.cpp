@@ -39,11 +39,6 @@ int main() {
             continue;
         }
 
-        if (choice == static_cast<int>(menu_option::Exit)) {
-            std::cout << "Выход из программы...\n";
-            break;
-        }
-
         std::cin.ignore();
 
         switch (static_cast<menu_option>(choice)) {
@@ -92,6 +87,10 @@ int main() {
             std::cout << "Список всех дел:\n";
             display_results(results);
             break;
+        }
+        case menu_option::Exit: {
+            std::cout << "Выход из программы...\n";
+            return 0;
         }
         default:
             std::cout << "Неверный выбор, попробуйте снова.\n";
