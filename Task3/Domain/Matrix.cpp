@@ -1,4 +1,4 @@
-#include "Matrix.h"
+п»ї#include "Matrix.h"
 #include <algorithm>
 #include <iomanip>
 #include <random>
@@ -24,7 +24,7 @@ void Matrix::fillRandomly(int min, int max) {
 void Matrix::fillFromInput() {
     for (size_t i = 0; i < rows; ++i) {
         for (size_t j = 0; j < columns; ++j) {
-            std::cout << "Введите элемент [" << i << "][" << j << "]: ";
+            std::cout << "Р’РІРµРґРёС‚Рµ СЌР»РµРјРµРЅС‚ [" << i << "][" << j << "]: ";
             std::cin >> data[i][j];
         }
     }
@@ -32,13 +32,13 @@ void Matrix::fillFromInput() {
 
 int& Matrix::operator()(size_t row, size_t col) {
     if (row >= rows || col >= columns)
-        throw std::out_of_range("Индекс вне диапазона");
+        throw std::out_of_range("РРЅРґРµРєСЃ РІРЅРµ РґРёР°РїР°Р·РѕРЅР°");
     return data[row][col];
 }
 
 const int& Matrix::operator()(size_t row, size_t col) const {
     if (row >= rows || col >= columns)
-        throw std::out_of_range("Индекс вне диапазона");
+        throw std::out_of_range("РРЅРґРµРєСЃ РІРЅРµ РґРёР°РїР°Р·РѕРЅР°");
     return data[row][col];
 }
 

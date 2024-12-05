@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 #include "Exercise.h"
 
 class Task_1 : public Exercise {
