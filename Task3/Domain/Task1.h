@@ -8,7 +8,6 @@ public:
     }
 
     void Task2(Matrix& matrix) override {
-        // Task1 does not implement Task2
     }
 };
 
