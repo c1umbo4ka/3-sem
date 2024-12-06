@@ -1,13 +1,13 @@
 ﻿#pragma once
 #include "Exercise.h"
 
-class Task_2 : public Exercise {
+class Task2 : public Exercise {
 public:
-    void Task1(Matrix& matrix) override {
+    void task_1(Matrix& matrix) override {
     }
 
-    void Task2(Matrix& matrix) override {
-        matrix.insertFirstRowAfterMaxRows();
+    void task_2(Matrix& matrix) override {
+        matrix.insert_first_row_after_max_rows();
     }
 };
 

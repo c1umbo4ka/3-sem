@@ -28,7 +28,6 @@ int main() {
     std::cout << "Введите максимальное значение: ";
     std::cin >> max;
 
-    // Выбор метода заполнения
     std::cout << "Выберите способ заполнения матрицы:\n"
         << "1. Вручную\n"
         << "2. Случайными числами\n";
@@ -40,7 +39,7 @@ int main() {
     switch (inputMethod) {
     case InputMethod::Manual: {
         std::cout << "Введите элементы матрицы вручную:\n";
-        IStreamGenerator inputGen(std::cin);
+        i_stream_generator inputGen(std::cin);
         for (size_t i = 0; i < rows; ++i) {
             for (size_t j = 0; j < columns; ++j) {
                 std::cout << "Введите элемент [" << i << "][" << j << "]: ";
@@ -51,7 +50,7 @@ int main() {
     }
     case InputMethod::Random: {
         std::cout << "Заполняем матрицу случайными числами...\n";
-        RandomGenerator randomGen(min, max);
+        random_generator randomGen(min, max);
         for (size_t i = 0; i < rows; ++i) {
             for (size_t j = 0; j < columns; ++j) {
                 matrix(i, j) = randomGen.generate();
@@ -64,19 +63,16 @@ int main() {
         return 1;
     }
 
-    // Печать исходной матрицы
     std::cout << "Исходная матрица:\n";
     matrix.print();
 
-    // Выполнение первого задания
-    Task_1 task1;
-    task1.Task1(matrix);
+    Task1 task1;
+    task1.task_1(matrix);
     std::cout << "После выполнения первого задания (замена максимальных элементов столбцов на нули):\n";
     matrix.print();
 
-    // Выполнение второго задания
-    Task_2 task2;
-    task2.Task2(matrix);
+    Task2 task2;
+    task2.task_2(matrix);
     std::cout << "После выполнения второго задания (вставка первой строки после строк с максимальным по модулю элементом):\n";
     matrix.print();
 

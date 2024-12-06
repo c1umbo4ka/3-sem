@@ -6,13 +6,13 @@
 Matrix::Matrix(size_t rows, size_t columns)
     : rows(rows), columns(columns), data(rows, std::vector<int>(columns)) {}
 
-void Matrix::fillWith(int value) {
+void Matrix::fill_with(int value) {
     for (auto& row : data) {
         std::fill(row.begin(), row.end(), value);
     }
 }
 
-void Matrix::fillRandomly(int min, int max) {
+void Matrix::fill_randomly(int min, int max) {
     std::random_device rd;
     std::mt19937 gen(rd());
     std::uniform_int_distribution<int> dis(min, max);
@@ -21,7 +21,7 @@ void Matrix::fillRandomly(int min, int max) {
     }
 }
 
-void Matrix::fillFromInput() {
+void Matrix::fill_from_input() {
     for (size_t i = 0; i < rows; ++i) {
         for (size_t j = 0; j < columns; ++j) {
             std::cout << "Введите элемент [" << i << "][" << j << "]: ";
@@ -51,7 +51,7 @@ void Matrix::print() const {
     }
 }
 
-void Matrix::replaceMaxInColumnsWithZero() {
+void Matrix::replace_max_in_columns_with_zero() {
     for (size_t col = 0; col < columns; ++col) {
         int maxElement = data[0][col];
         for (size_t row = 1; row < rows; ++row) {
@@ -65,7 +65,7 @@ void Matrix::replaceMaxInColumnsWithZero() {
     }
 }
 
-void Matrix::insertFirstRowAfterMaxRows() {
+void Matrix::insert_first_row_after_max_rows() {
     int maxAbsElement = 0;
     for (const auto& row : data) {
         for (const auto& elem : row) {
@@ -76,7 +76,7 @@ void Matrix::insertFirstRowAfterMaxRows() {
     for (const auto& row : data) {
         newData.push_back(row);
         if (std::any_of(row.begin(), row.end(), [&](int val) { return std::abs(val) == maxAbsElement; })) {
-            newData.push_back(data[0]); // Insert first row
+            newData.push_back(data[0]);
         }
     }
     data = std::move(newData);

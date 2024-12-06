@@ -1,8 +1,8 @@
 #include "IStreamGenerator.h"
 
-IStreamGenerator::IStreamGenerator(std::istream& input) : input(input) {}
+i_stream_generator::i_stream_generator(std::istream& input) : input(input) {}
 
-int IStreamGenerator::generate() {
+int i_stream_generator::generate() {
     int value;
     input >> value;
     return value;

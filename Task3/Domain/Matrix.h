@@ -10,19 +10,19 @@ private:
 public:
     Matrix(size_t rows, size_t columns);
 
-    void fillWith(int value);
-    void fillRandomly(int min, int max);
-    void fillFromInput();
+    void fill_with(int value);
+    void fill_randomly(int min, int max);
+    void fill_from_input();
 
     int& operator()(size_t row, size_t col);
     const int& operator()(size_t row, size_t col) const;
 
     void print() const;
 
-    void replaceMaxInColumnsWithZero();
-    void insertFirstRowAfterMaxRows();
+    void replace_max_in_columns_with_zero();
+    void insert_first_row_after_max_rows();
 
-    size_t getRows() const { return rows; }
-    size_t getColumns() const { return columns; }
+    size_t get_rows() const { return rows; }
+    size_t get_columns() const { return columns; }
 };
 

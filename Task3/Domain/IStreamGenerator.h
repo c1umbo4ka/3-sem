@@ -3,12 +3,12 @@
 #include "Generator.h"
 #include <iostream>
 
-class IStreamGenerator : public Generator {
+class i_stream_generator : public Generator {
 private:
     std::istream& input;
 
 public:
-    IStreamGenerator(std::istream& input = std::cin);
+    i_stream_generator(std::istream& input = std::cin);
     int generate() override;
 };
 
