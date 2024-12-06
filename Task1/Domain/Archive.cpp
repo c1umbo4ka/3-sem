@@ -1,8 +1,13 @@
 ﻿#include "archive.h"
+#include "criminal_case.h"
 #include <algorithm>
 
-void archive::add_case(std::shared_ptr<Case> case_ptr) {
-    cases.emplace_back(std::move(case_ptr));
+void archive::add_case(std::shared_ptr<Case>& case_ptr) {
+    cases.emplace_back(case_ptr);
+    auto criminal_case_ptr = std::dynamic_pointer_cast<criminal_case>(case_ptr);
+    if (criminal_case_ptr) {
+        criminal_case_ptr->set_archive(shared_from_this());
+    }
 }
 
 std::vector<std::string> archive::find_by_convict(const std::string& convict) const {

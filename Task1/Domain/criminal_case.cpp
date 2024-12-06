@@ -1,5 +1,4 @@
 ﻿#include "criminal_case.h"
-#include "case.h"
 #include <sstream>
 
 criminal_case::criminal_case(const std::string& convict, const std::string& detective, const std::string& article)
@@ -7,6 +6,10 @@ criminal_case::criminal_case(const std::string& convict, const std::string& dete
 
 std::shared_ptr<criminal_case> criminal_case::create(const std::string& convict, const std::string& detective, const std::string& article) {
     return std::make_shared<criminal_case>(convict, detective, article);
+}
+
+void criminal_case::set_archive(std::shared_ptr<archive> parent) {
+    parent_archive = parent;
 }
 
 std::string criminal_case::get_info() const {
