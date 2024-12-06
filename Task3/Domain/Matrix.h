@@ -10,7 +10,6 @@ private:
 public:
     Matrix(size_t rows, size_t columns);
 
-    void fill_with(int value);
     void fill_randomly(int min, int max);
     void fill_from_input();
 

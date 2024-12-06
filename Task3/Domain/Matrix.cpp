@@ -6,11 +6,6 @@
 Matrix::Matrix(size_t rows, size_t columns)
     : rows(rows), columns(columns), data(rows, std::vector<int>(columns)) {}
 
-void Matrix::fill_with(int value) {
-    for (auto& row : data) {
-        std::fill(row.begin(), row.end(), value);
-    }
-}
 
 void Matrix::fill_randomly(int min, int max) {
     std::random_device rd;
