@@ -5,7 +5,7 @@ criminal_case::criminal_case(const std::string& convict, const std::string& dete
     : convict_name(convict), detective_name(detective), crime_article(article) {}
 
 std::shared_ptr<criminal_case> criminal_case::create(const std::string& convict, const std::string& detective, const std::string& article) {
-    return std::make_shared<criminal_case>(convict, detective, article);
+    return std::shared_ptr<criminal_case>(new criminal_case(convict, detective, article));
 }
 
 void criminal_case::set_archive(std::shared_ptr<archive> parent) {

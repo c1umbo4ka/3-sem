@@ -1,113 +1,140 @@
 ﻿#include <iostream>
+#include <memory>
 #include <string>
-#include <limits>
 #include <locale>
 #include "../Domain/archive.h"
 #include "../Domain/criminal_case.h"
 
-enum class menu_option {
-    AddCase = 1,
-    FindByConvict,
-    FindByDetective,
-    FindByArticle,
-    DisplayAllCases,
-    Exit
-};
+void display_menu() {
+    std::cout << "\nМеню:\n";
+    std::cout << "1. Добавить дело\n";
+    std::cout << "2. Искать дела по имени осужденного\n";
+    std::cout << "3. Искать дела по имени следователя\n";
+    std::cout << "4. Искать дела по статье\n";
+    std::cout << "5. Показать все дела\n";
+    std::cout << "0. Выход\n";
+    std::cout << "Введите номер команды: ";
+}
 
-void display_results(const std::vector<std::string>& results);
+void add_case(std::shared_ptr<archive> archive_ptr) {
+    std::string convict, detective, article;
+
+    std::cout << "Введите имя осужденного: ";
+    std::getline(std::cin, convict);
+    std::cout << "Введите имя следователя: ";
+    std::getline(std::cin, detective);
+    std::cout << "Введите статью: ";
+    std::getline(std::cin, article);
+
+    auto new_case = criminal_case::create(convict, detective, article);
+    archive_ptr->add_case(new_case);
+
+    std::cout << "Дело добавлено!\n";
+}
+
+void search_by_convict(const std::shared_ptr<archive>& archive_ptr) {
+    std::string convict;
+    std::cout << "Введите имя осужденного для поиска: ";
+    std::getline(std::cin, convict);
+
+    auto results = archive_ptr->find_by_convict(convict);
+    if (results.empty()) {
+        std::cout << "Дела с указанным осужденным не найдены.\n";
+    }
+    else {
+        std::cout << "Найденные дела:\n";
+        for (const auto& info : results) {
+            std::cout << "- " << info << "\n";
+        }
+    }
+}
+
+void search_by_detective(const std::shared_ptr<archive>& archive_ptr) {
+    std::string detective;
+    std::cout << "Введите имя следователя для поиска: ";
+    std::getline(std::cin, detective);
+
+    auto results = archive_ptr->find_by_detective(detective);
+    if (results.empty()) {
+        std::cout << "Дела с указанным следователем не найдены.\n";
+    }
+    else {
+        std::cout << "Найденные дела:\n";
+        for (const auto& info : results) {
+            std::cout << "- " << info << "\n";
+        }
+    }
+}
+
+void search_by_article(const std::shared_ptr<archive>& archive_ptr) {
+    std::string article;
+    std::cout << "Введите статью для поиска: ";
+    std::getline(std::cin, article);
+
+    auto results = archive_ptr->find_by_article(article);
+    if (results.empty()) {
+        std::cout << "Дела с указанной статьёй не найдены.\n";
+    }
+    else {
+        std::cout << "Найденные дела:\n";
+        for (const auto& info : results) {
+            std::cout << "- " << info << "\n";
+        }
+    }
+}
+
+void display_all_cases(const std::shared_ptr<archive>& archive_ptr) {
+    auto results = archive_ptr->display_all_cases();
+    if (results.empty()) {
+        std::cout << "В архиве нет дел.\n";
+    }
+    else {
+        std::cout << "Все дела:\n";
+        for (const auto& info : results) {
+            std::cout << "- " << info << "\n";
+        }
+    }
+}
 
 int main() {
     setlocale(LC_ALL, "RU");
-    archive archive_obj;
+    auto archive_ptr = std::make_shared<archive>();
     int choice;
 
-    while (true) {
-        std::cout << "\nВыберите действие:\n";
-        std::cout << "1. Добавить новое дело\n";
-        std::cout << "2. Найти дело по осужденному\n";
-        std::cout << "3. Найти дела по следователю\n";
-        std::cout << "4. Найти дела по статье\n";
-        std::cout << "5. Показать все дела\n";
-        std::cout << "6. Выйти\n";
-
+    do {
+        display_menu();
         std::cin >> choice;
-
         if (std::cin.fail()) {
             std::cin.clear();
             std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
             std::cout << "Неверный ввод. Попробуйте снова.\n";
             continue;
         }
+        std::cin.ignore(); 
 
-        std::cin.ignore();
-
-        switch (static_cast<menu_option>(choice)) {
-        case menu_option::AddCase: {
-            std::string convict, detective, article;
-            std::cout << "Введите имя осужденного: ";
-            std::getline(std::cin, convict);
-            std::cout << "Введите имя следователя: ";
-            std::getline(std::cin, detective);
-            std::cout << "Введите статью: ";
-            std::getline(std::cin, article);
-
-            archive_obj.add_case(criminal_case::create(convict, detective, article));
-            std::cout << "Дело добавлено успешно.\n";
+        switch (choice) {
+        case 1:
+            add_case(archive_ptr);
             break;
-        }
-        case menu_option::FindByConvict: {
-            std::string convict;
-            std::cout << "Введите имя осужденного: ";
-            std::getline(std::cin, convict);
-            auto results = archive_obj.find_by_convict(convict);
-            std::cout << "Результаты поиска по осужденному \"" << convict << "\":\n";
-            display_results(results);
+        case 2:
+            search_by_convict(archive_ptr);
             break;
-        }
-        case menu_option::FindByDetective: {
-            std::string detective;
-            std::cout << "Введите имя следователя: ";
-            std::getline(std::cin, detective);
-            auto results = archive_obj.find_by_detective(detective);
-            std::cout << "Результаты поиска по следователю \"" << detective << "\":\n";
-            display_results(results);
+        case 3:
+            search_by_detective(archive_ptr);
             break;
-        }
-        case menu_option::FindByArticle: {
-            std::string article;
-            std::cout << "Введите статью: ";
-            std::getline(std::cin, article);
-            auto results = archive_obj.find_by_article(article);
-            std::cout << "Результаты поиска по статье \"" << article << "\":\n";
-            display_results(results);
+        case 4:
+            search_by_article(archive_ptr);
             break;
-        }
-        case menu_option::DisplayAllCases: {
-            auto results = archive_obj.display_all_cases();
-            std::cout << "Список всех дел:\n";
-            display_results(results);
+        case 5:
+            display_all_cases(archive_ptr);
             break;
-        }
-        case menu_option::Exit: {
-            std::cout << "Выход из программы...\n";
+        case 0:
+            std::cout << "Выход из программы.\n";
             return 0;
-        }
         default:
-            std::cout << "Неверный выбор, попробуйте снова.\n";
-            break;
+            std::cout << "Неверная команда. Попробуйте ещё раз.\n";
         }
-    }
+    } while (choice != 0);
 
     return 0;
-}
-
-void display_results(const std::vector<std::string>& results) {
-    if (results.empty()) {
-        std::cout << "Ничего не найдено.\n";
-    }
-    else {
-        for (const auto& result : results) {
-            std::cout << result << '\n';
-        }
-    }
 }

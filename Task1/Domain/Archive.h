@@ -12,7 +12,7 @@ class archive : public std::enable_shared_from_this<archive> {
     /**
     * @brief Коллекция дел.
     */
-    std::vector<Case*> cases;
+    std::vector<std::shared_ptr<Case>> cases;
 
 public:
 
@@ -20,7 +20,7 @@ public:
      * @brief Добавляет новое дело в архив.
      * @param Умный указатель на объект класса Case.
      */
-    void add_case(std::shared_ptr<Case>& case_ptr);
+    void add_case(const std::shared_ptr<Case>& case_ptr);
 
     /**
      * @brief Находит все дела по имени осужденного.
