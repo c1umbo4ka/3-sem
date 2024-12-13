@@ -10,19 +10,19 @@ public:
     /**
      * @brief Виртуальный деструктор класса.
      */
-    virtual ~Exercise() = default;
+    virtual ~Exercise() {};
 
     /**
      * @brief Абстрактный метод для выполнения первой задачи.
      * @param matrix Ссылка на объект `Matrix`, над которым выполняется задача.
      */
-    virtual void task_1(Matrix& matrix) = 0;
+    virtual void task_1(int columns, int rows, Generator* generator) = 0;
 
     /**
     * @brief Абстрактный метод для выполнения второй задачи.
     * @param matrix Ссылка на объект `Matrix`, над которым выполняется задача.
     */
-    virtual void task_2(Matrix& matrix) = 0;
+    virtual void task_2(int columns, int rows, Generator* generator) = 0;
 };
 
 
