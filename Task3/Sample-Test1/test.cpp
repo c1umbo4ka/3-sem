@@ -5,34 +5,34 @@
 #include "../Domain/RandomGenerator.h"
 #include "../Domain/IStreamGenerator.h"
 
-TEST(matrixTest, Constructor) {
-    matrix<int> matrix(3, 3);
-    EXPECT_EQ(matrix.get_rows(), 3);
-    EXPECT_EQ(matrix.get_cols(), 3);
+TEST(matrix_dataTest, Constructor) {
+    matrix<int> matrix_data(3, 3);
+    EXPECT_EQ(matrix_data.get_rows(), 3);
+    EXPECT_EQ(matrix_data.get_cols(), 3);
 }
 
-TEST(matrixTest, SetAndGetElement) {
-    matrix<int> matrix(3, 3);
-    matrix.set_element(1, 1, 42);
-    EXPECT_EQ(matrix.get_element(1, 1), 42);
+TEST(matrix_dataTest, SetAndGetElement) {
+    matrix<int> matrix_data(3, 3);
+    matrix_data.set_element(1, 1, 42);
+    EXPECT_EQ(matrix_data.get_element(1, 1), 42);
 }
 
-TEST(matrixTest, FillWithConstantValue) {
-    matrix<int> matrix(2, 2);
-    matrix.fill([]() { return 5; });
-    EXPECT_EQ(matrix.get_element(0, 0), 5);
-    EXPECT_EQ(matrix.get_element(0, 1), 5);
-    EXPECT_EQ(matrix.get_element(1, 0), 5);
-    EXPECT_EQ(matrix.get_element(1, 1), 5);
+TEST(matrix_dataTest, FillWithConstantValue) {
+    matrix<int> matrix_data(2, 2);
+    matrix_data.fill([]() { return 5; });
+    EXPECT_EQ(matrix_data.get_element(0, 0), 5);
+    EXPECT_EQ(matrix_data.get_element(0, 1), 5);
+    EXPECT_EQ(matrix_data.get_element(1, 0), 5);
+    EXPECT_EQ(matrix_data.get_element(1, 1), 5);
 }
 
-TEST(matrixTest, InsertRow) {
-    matrix<int> matrix(2, 2);
+TEST(matrix_dataTest, InsertRow) {
+    matrix<int> matrix_data(2, 2);
     std::vector<int> newRow = { 7, 8 };
-    matrix.insert_row(1, newRow);
-    EXPECT_EQ(matrix.get_rows(), 3);
-    EXPECT_EQ(matrix.get_element(1, 0), 7);
-    EXPECT_EQ(matrix.get_element(1, 1), 8);
+    matrix_data.insert_row(1, newRow);
+    EXPECT_EQ(matrix_data.get_rows(), 3);
+    EXPECT_EQ(matrix_data.get_element(1, 0), 7);
+    EXPECT_EQ(matrix_data.get_element(1, 1), 8);
 }
 
 TEST(random_generatorTest, GeneratesIntegerInRange) {
@@ -68,30 +68,31 @@ TEST(i_stream_generatorTest, GeneratesFloatFromInput) {
 TEST(Task1Test, ReplacesMaxInColumnWithZero) {
     Task1<int> task(3, 3);
     task.fill([]() { return 5; });
-    task.matrix.set_element(1, 0, 42);
+    task.matrix_data.set_element(1, 0, 42);
     task.perform_task();
-    EXPECT_EQ(task.matrix.get_element(1, 0), 0);
+    EXPECT_EQ(task.matrix_data.get_element(1, 0), 0);
 }
 
-TEST(Task1Test, HandlesSingleColumnmatrix) {
+TEST(Task1Test, HandlesSingleColumnmatrix_data) {
     Task1<int> task(3, 1);
     task.fill([]() { return 5; });
-    task.matrix.set_element(2, 0, 99);
+    task.matrix_data.set_element(2, 0, 99);
     task.perform_task();
-    EXPECT_EQ(task.matrix.get_element(2, 0), 0);
+    EXPECT_EQ(task.matrix_data.get_element(2, 0), 0);
 }
 
 TEST(Task2Test, InsertsRowAfterRowContainingMaxAbsValue) {
     Task2<int> task(3, 3);
     task.fill([]() { return 5; });
-    task.matrix.set_element(1, 1, 100);
+    task.matrix_data.set_element(1, 1, 100);
     task.perform_task();
-    EXPECT_EQ(task.matrix.get_rows(), 4);
-    EXPECT_EQ(task.matrix.get_element(2, 0), 5);
+    EXPECT_EQ(task.matrix_data.get_rows(), 4);
+    EXPECT_EQ(task.matrix_data.get_element(2, 0), 5);
 }
 
 TEST(Task2Test, HandlesNoMaxAbsValueFound) {
     Task2<int> task(2, 2);
     task.fill([]() { return 1; });
-    EXPECT_EQ(task.matrix.get_rows(), 2);
+    task.perform_task();
+    EXPECT_EQ(task.matrix_data.get_rows(), 4);
 }

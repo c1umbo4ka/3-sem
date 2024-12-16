@@ -1,7 +1,7 @@
 ﻿#pragma once
 #include "Exercise.h"
 #include "Matrix.h"
-#include <algorithm>
+
 
 /**
 * @brief Задача 1 - заменить максимальные элементы столбцов на 0.
@@ -22,26 +22,18 @@ public:
     * @brief Выполняет задачу 1.
     */
     void perform_task() override {
-        for (int col = 0; col < this->matrix.get_cols(); ++col) {
-            replace_max_in_column_with_zero(col);
-        }
-    }
+        for (int col = 0; col < this->matrix_data.get_cols(); ++col) {
+            int max_row = 0;
+            T max_value = this->matrix_data.get_element(0, col);
 
-private:
-
-    /**
-    * @brief Заменяет Максимальные элементы столбцов на 0.
-    * @param col Номер столбца.
-    */
-    void replace_max_in_column_with_zero(int col) {
-        int maxRow = 0;
-        T maxValue = this->matrix.get_element(0, col);
-        for (int row = 1; row < this->matrix.get_rows(); ++row) {
-            if (this->matrix.get_element(row, col) > maxValue) {
-                maxValue = this->matrix.get_element(row, col);
-                maxRow = row;
+            for (int row = 1; row < this->matrix_data.get_rows(); ++row) {
+                if (this->matrix_data.get_element(row, col) > max_value) {
+                    max_value = this->matrix_data.get_element(row, col);
+                    max_row = row;
+                }
             }
+
+            this->matrix_data.set_element(max_row, col, 0);
         }
-        this->matrix.set_element(maxRow, col, 0);
     }
 };

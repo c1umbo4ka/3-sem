@@ -22,11 +22,11 @@ public:
     * @brief Выполняет задачу 2.
     */
     void perform_task() override {
-        T max_abs_value = get_max_abs_value();
-        for (int i = 0; i < this->matrix.get_rows(); ++i) {
-            if (contains_max_abs_value(i, max_abs_value)) {
-                insert_row_after(i, this->matrix.get_row(0));
-                ++i;
+        T max_value = find_max_element();
+        for (int i = 0; i < this->matrix_data.get_rows(); ++i) {
+            if (contains_max_element_in_row(i, max_value)) {
+                insert_first_row_after(i);
+                ++i; 
             }
         }
     }
@@ -36,14 +36,19 @@ private:
     /**
     * @brief Получает максимальное по модулю значение.
     */
-    T get_max_abs_value() const {
-        T maxAbs = 0;
-        for (int row = 0; row < this->matrix.get_rows(); ++row) {
-            for (int col = 0; col < this->matrix.get_cols(); ++col) {
-                maxAbs = std::max(maxAbs, std::abs(this->matrix.get_element(row, col)));
+    T find_max_element() {
+        T max_value = this->matrix_data.get_element(0, 0);
+
+        for (int row = 0; row < this->matrix_data.get_rows(); ++row) {
+            for (int col = 0; col < this->matrix_data.get_cols(); ++col) {
+                T current_value = this->matrix_data.get_element(row, col);
+                if (current_value > max_value) {
+                    max_value = current_value;
+                }
             }
         }
-        return maxAbs;
+
+        return max_value;
     }
 
     /**
@@ -52,17 +57,18 @@ private:
     * @param max_abs_value Максимальное по модулю значение.
     * @return true, если строка содержит это значение.
     */
-    bool contains_max_abs_value(int row, T max_abs_value) const {
-        const auto& currentRow = this->matrix.get_row(row);
-        return std::find(currentRow.begin(), currentRow.end(), max_abs_value) != currentRow.end();
+    bool contains_max_element_in_row(int row_index, T max_value) {
+        const auto& row = this->matrix_data.get_row(row_index);
+        return std::find(row.begin(), row.end(), max_value) != row.end();
     }
 
     /**
-    * @brief Вставляет строку после указанной.
+    * @brief Вставляет первую после указанной.
     * @param index Индекс строки.
     * @param row Вектор , представляющий вставляемую строку.
     */
-    void insert_row_after(int index, const std::vector<T>& row) {
-        this->matrix.insert_row(index + 1, row);
+    void insert_first_row_after(int row_index) {
+        std::vector<T> first_row = this->matrix_data.get_row(0);  
+        this->matrix_data.insert_row(row_index + 1, first_row);  
     }
 };

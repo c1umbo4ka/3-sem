@@ -2,75 +2,90 @@
 #include "../Domain/Task2.h"
 #include "../Domain/RandomGenerator.h"
 #include "../Domain/IStreamGenerator.h"
+
 #include <iostream>
 #include <memory>
 #include <locale>
 
+enum class DataType {
+    INT = 1,
+    FLOAT,
+    DOUBLE
+};
+
 template <typename T>
-void runexercise(int rows, int cols, int fillChoice, int taskChoice) {
-    std::unique_ptr<exercise<T>> exercise;
+void run_exercise(int rows, int cols, int fill_choice) {
+    
+    matrix<T> shared_matrix(rows, cols);
 
-    if (fillChoice == 1) {
-        random_generator<T> gen(0, 100);
-        if (taskChoice == 1) {
-            exercise = std::make_unique<Task1<T>>(rows, cols);
-        }
-        else if (taskChoice == 2) {
-            exercise = std::make_unique<Task2<T>>(rows, cols);
-        }
-        else {
-            std::cerr << "Неверный выбор задачи!" << std::endl;
-            return;
-        }
-        exercise->fill([&]() { return gen.generate(); });
-
+    if (fill_choice == 1) {
+        T min_val, max_val;
+        std::cout << "Введите минимальное и максимальное значение для случайной генерации: ";
+        std::cin >> min_val >> max_val;
+        random_generator<T> gen(min_val, max_val);
+        shared_matrix.fill([&]() { return gen.generate(); });
     }
-    else if (fillChoice == 2) {
-        i_stream_generator<T> gen;
-        if (taskChoice == 1) {
-            exercise = std::make_unique<Task1<T>>(rows, cols);
+    else if (fill_choice == 2) {  
+        std::cout << "Введите элементы матрицы по строкам:\n";
+        for (int i = 0; i < rows; ++i) {
+            for (int j = 0; j < cols; ++j) {
+                T value;
+                std::cout << "Введите элемент [" << i + 1 << "][" << j + 1 << "]: ";
+                std::cin >> value;
+                if (!std::cin) {  
+                    std::cerr << "Ошибка ввода! Пожалуйста, введите числовое значение." << std::endl;
+                    return;
+                }
+                shared_matrix.set_element(i, j, value);
+            }
         }
-        else if (taskChoice == 2) {
-            exercise = std::make_unique<Task2<T>>(rows, cols);
-        }
-        else {
-            std::cerr << "Неверный выбор задачи!" << std::endl;
-            return;
-        }
-        exercise->fill([&]() { return gen.generate(); });
-
     }
     else {
         std::cerr << "Неверный выбор способа заполнения!" << std::endl;
         return;
     }
 
+    
     std::cout << "\nИсходная матрица:\n";
-    exercise->print();
+    shared_matrix.print();
 
-    exercise->perform_task();
+    Task1<T> task1(rows, cols);
+    task1.matrix_data = shared_matrix; 
+    task1.perform_task();
 
-    std::cout << "\nИзмененная матрица:\n";
-    exercise->print();
+    std::cout << "\nИзмененная матрица (Task 1):\n";
+    task1.matrix_data.print();
+
+    Task2<T> task2(rows, cols);
+    task2.matrix_data = shared_matrix; 
+    task2.perform_task();
+
+    std::cout << "\nИзмененная матрица (Task 2):\n";
+    task2.matrix_data.print();
 }
 
 int main() {
     setlocale(LC_ALL, "RU");
 
-    int rows, cols, fillChoice, taskChoice, typeChoice;
+    int rows, cols;
+    int data_type_choice;
+    int fill_choice;
+    double min_val, max_val;
 
+    
     std::cout << "Выберите тип данных: \n"
         << "1 - int\n"
         << "2 - float\n"
         << "3 - double\n"
         << "Ваш выбор: ";
-    std::cin >> typeChoice;
+    std::cin >> data_type_choice;
 
-    if (typeChoice < 1 || typeChoice > 3) {
+    if (data_type_choice != 1 && data_type_choice != 2 && data_type_choice != 3) {
         std::cerr << "Неверный выбор типа данных!" << std::endl;
         return 1;
     }
 
+    
     std::cout << "Введите количество строк и столбцов: ";
     std::cin >> rows >> cols;
 
@@ -79,40 +94,32 @@ int main() {
         return 1;
     }
 
+    
     std::cout << "Выберите способ заполнения: \n"
         << "1 - случайно\n"
         << "2 - с клавиатуры\n"
         << "Ваш выбор: ";
-    std::cin >> fillChoice;
+    std::cin >> fill_choice;
 
-    if (fillChoice != 1 && fillChoice != 2) {
+    
+    if (fill_choice != 1 && fill_choice != 2) {
         std::cerr << "Неверный выбор способа заполнения!" << std::endl;
         return 1;
     }
 
-    std::cout << "Выберите задачу: \n"
-        << "1 - Task1 (замена максимума в столбце на 0)\n"
-        << "2 - Task2 (вставка строки после строки с максимальным по модулю элементом)\n"
-        << "Ваш выбор: ";
-    std::cin >> taskChoice;
-
-    if (taskChoice != 1 && taskChoice != 2) {
-        std::cerr << "Неверный выбор задачи!" << std::endl;
-        return 1;
-    }
-
-    switch (typeChoice) {
+    
+    switch (data_type_choice) {
     case 1:
         std::cout << "Выбран тип данных: int\n";
-        runexercise<int>(rows, cols, fillChoice, taskChoice);
+        run_exercise<int>(rows, cols, fill_choice);
         break;
     case 2:
         std::cout << "Выбран тип данных: float\n";
-        runexercise<float>(rows, cols, fillChoice, taskChoice);
+        run_exercise<float>(rows, cols, fill_choice);
         break;
     case 3:
         std::cout << "Выбран тип данных: double\n";
-        runexercise<double>(rows, cols, fillChoice, taskChoice);
+        run_exercise<double>(rows, cols, fill_choice);
         break;
     default:
         std::cerr << "Неверный выбор типа данных!" << std::endl;
@@ -121,3 +128,6 @@ int main() {
 
     return 0;
 }
+
+
+

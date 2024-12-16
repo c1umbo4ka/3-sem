@@ -14,7 +14,7 @@ private:
     /**
      * @brief Двумерный вектор для хранения элементов матрицы.
      */
-    std::vector<std::vector<T>> data;
+    std::vector<std::vector<T>> matrix_data;
 
     /**
      * @brief Количество строк в матрице.
@@ -71,7 +71,7 @@ public:
     * @return Значение элемента типа T, расположенного в строке row и столбце col
     * @throws std::out_of_range Если индекс строки или столбца выходит за пределы размеров матрицы.
     */
-    T get_element(int row, int col) const { return data[row][col]; }
+    T get_element(int row, int col) const { return matrix_data[row][col]; }
 
     /**
     * @brief Устанавливает значение элемента матрицы по указанным индексам строки и столбца.
@@ -80,7 +80,7 @@ public:
     * @param value Новое значение элемента типа T, которое будет установлено в строку row и столбец col
     * @throws std::out_of_range Если индекс строки или столбца выходит за пределы размеров матрицы.
     */
-    void set_element(int row, int col, T value) { data[row][col] = value; }
+    void set_element(int row, int col, T value) { matrix_data[row][col] = value; }
 
     /**
      * @brief Вставляет новую строку в матрицу
@@ -91,11 +91,11 @@ public:
 };
 
 template <typename T>
-matrix<T>::matrix(int rows, int cols) : rows(rows), cols(cols), data(rows, std::vector<T>(cols)) {}
+matrix<T>::matrix(int rows, int cols) : rows(rows), cols(cols), matrix_data(rows, std::vector<T>(cols)) {}
 
 template <typename T>
 void matrix<T>::fill(const std::function<T()>& generator) {
-    for (auto& row : data) {
+    for (auto& row : matrix_data) {
         for (auto& elem : row) {
             elem = generator();
         }
@@ -104,7 +104,7 @@ void matrix<T>::fill(const std::function<T()>& generator) {
 
 template <typename T>
 void matrix<T>::print() const {
-    for (const auto& row : data) {
+    for (const auto& row : matrix_data) {
         for (const auto& elem : row) {
             std::cout << elem << " ";
         }
@@ -114,11 +114,11 @@ void matrix<T>::print() const {
 
 template <typename T>
 const std::vector<T>& matrix<T>::get_row(int index) const {
-    return data[index];
+    return matrix_data[index];
 }
 
 template <typename T>
 void matrix<T>::insert_row(int index, const std::vector<T>& row) {
-    data.insert(data.begin() + index, row);
+    matrix_data.insert(matrix_data.begin() + index, row);
     ++rows;
 }
