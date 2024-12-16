@@ -1,90 +1,124 @@
 ﻿#pragma once
 #include <vector>
 #include <iostream>
+#include <functional>
 
 /**
- * @brief Класс, представляющий двумерную матрицу с методами обработки.
+ * @brief Класс матрицы
+ * @tparam T Тип элементов матрицы.
  */
-class Matrix {
+template <typename T>
+class matrix {
 private:
 
     /**
-    * @brief Данные матрицы.
-    */
-    std::vector<std::vector<int>> data;
+     * @brief Двумерный вектор для хранения элементов матрицы.
+     */
+    std::vector<std::vector<T>> data;
 
     /**
-    * @brief Количество строк.
-    */
-    size_t rows;
+     * @brief Количество строк в матрице.
+     */
+    int rows;
 
     /**
-    * @brief Количество столбцов.
-    */
-    size_t columns;
+     * @brief Количество столбцов в матрице.
+     */
+    int cols;
 
 public:
-
     /**
-     * @brief Конструктор класса Matrix.
+     * @brief Конструктор матрицы.
      * @param rows Количество строк.
-     * @param columns Количество столбцов.
+     * @param cols Количество столбцов.
      */
-    Matrix(size_t rows, size_t columns);
+    matrix(int rows, int cols);
 
     /**
-     * @brief Заполняет матрицу случайными числами.
-     * @param min Минимальное значение диапазона.
-     * @param max Максимальное значение диапазона.
+     * @brief Заполняет матрицу значениями, сгенерированными переданной функцией.
+     * @param generator Функция-генератор элементов.
      */
-    void fill_randomly(int min, int max);
+    void fill(const std::function<T()>& generator);
 
     /**
-     * @brief Позволяет пользователю вручную ввести элементы матрицы.
-     */
-    void fill_from_input();
-
-    /**
-     * @brief Доступ к элементу матрицы для чтения/записи.
-     * @param row Индекс строки.
-     * @param col Индекс столбца.
-     * @return Ссылка на элемент матрицы.
-     */
-    int& operator()(size_t row, size_t col);
-
-    /**
-     * @brief Доступ к элементу матрицы только для чтения.
-     * @param row Индекс строки.
-     * @param col Индекс столбца.
-     * @return Константная ссылка на элемент матрицы.
-     */
-    const int& operator()(size_t row, size_t col) const;
-
-    /**
-     * @brief Выводит матрицу на экран.
+     * @brief Печатает матрицу на экран.
      */
     void print() const;
 
     /**
-     * @brief Заменяет максимальные элементы каждого столбца на 0.
+     * @brief Возвращает строку матрицы по индексу
+     * @param index Индекс строки.
+     * @return Вектор элементов строки.
      */
-    void replace_max_in_columns_with_zero();
+    const std::vector<T>& get_row(int index) const;
 
     /**
-     * @brief Вставляет первую строку после строк с максимальным по модулю элементом.
-     */
-    void insert_first_row_after_max_rows();
-
-    /**
-    * @brief Возвращает количество строк.
-    * @return Количество строк.
+    * @brief Получает количество строк в матрице.
+    * @return Количество строк в матрице.
     */
-    size_t get_rows() const { return rows; }
+    int get_rows() const { return rows; }
 
     /**
-     * @brief Возвращает количество столбцов.
-     * @return Количество столбцов.
+    * @brief Получает количество столбцов в матрице.
+    * @return Количество столбцов в матрице.
+    */
+    int get_cols() const { return cols; }
+
+    /**
+    * @brief Получает элемент матрицы по указанным индексам строки и столбца.
+    * @param row Индекс строки (начиная с 0).
+    * @param col Индекс столбца (начиная с 0).
+    * @return Значение элемента типа T, расположенного в строке row и столбце col
+    * @throws std::out_of_range Если индекс строки или столбца выходит за пределы размеров матрицы.
+    */
+    T get_element(int row, int col) const { return data[row][col]; }
+
+    /**
+    * @brief Устанавливает значение элемента матрицы по указанным индексам строки и столбца.
+    * @param row Индекс строки (начиная с 0).
+    * @param col Индекс столбца (начиная с 0).
+    * @param value Новое значение элемента типа T, которое будет установлено в строку row и столбец col
+    * @throws std::out_of_range Если индекс строки или столбца выходит за пределы размеров матрицы.
+    */
+    void set_element(int row, int col, T value) { data[row][col] = value; }
+
+    /**
+     * @brief Вставляет новую строку в матрицу
+     * @param index Индекс, куда вставляется строка.
+     * @param row Вектор элементов новой строки.
      */
-    size_t get_columns() const { return columns; }
+    void insert_row(int index, const std::vector<T>& row);
 };
 
+template <typename T>
+matrix<T>::matrix(int rows, int cols) : rows(rows), cols(cols), data(rows, std::vector<T>(cols)) {}
+
+template <typename T>
+void matrix<T>::fill(const std::function<T()>& generator) {
+    for (auto& row : data) {
+        for (auto& elem : row) {
+            elem = generator();
+        }
+    }
+}
+
+template <typename T>
+void matrix<T>::print() const {
+    for (const auto& row : data) {
+        for (const auto& elem : row) {
+            std::cout << elem << " ";
+        }
+        std::cout << std::endl;
+    }
+}
+
+template <typename T>
+const std::vector<T>& matrix<T>::get_row(int index) const {
+    return data[index];
+}
+
+template <typename T>
+void matrix<T>::insert_row(int index, const std::vector<T>& row) {
+    data.insert(data.begin() + index, row);
+    ++rows;
+}

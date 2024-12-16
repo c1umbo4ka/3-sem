@@ -2,27 +2,47 @@
 #include "Matrix.h"
 
 /**
- * @brief Базовый класс для выполнения задач над матрицей.
+ * @brief Абстрактный базовый класс Exercise
+ * @tparam T Тип данных для элементов матрицы.
  */
-class Exercise {
+template <typename T>
+class exercise {
 public:
 
     /**
-     * @brief Виртуальный деструктор класса.
+     * @brief Матрица, с которой работает упражнение.
      */
-    virtual ~Exercise() {};
+    matrix<T> matrix;
 
     /**
-     * @brief Абстрактный метод для выполнения первой задачи.
-     * @param matrix Ссылка на объект `Matrix`, над которым выполняется задача.
-     */
-    virtual void task_1(int columns, int rows, Generator* generator) = 0;
-
-    /**
-    * @brief Абстрактный метод для выполнения второй задачи.
-    * @param matrix Ссылка на объект `Matrix`, над которым выполняется задача.
+    * @brief Конструктор класса Exercise.
+    * @param rows Количество строк в матрице.
+    * @param cols Количество столбцов в матрице.
     */
-    virtual void task_2(int columns, int rows, Generator* generator) = 0;
+    exercise(int rows, int cols) : matrix(rows, cols) {}
+
+    /**
+     * @brief Виртуальный деструктор.
+     */
+    virtual ~exercise() = 0;
+
+    /**
+     * @brief Чисто виртуальная функция, которая определяет основную задачу упражнения.
+     */
+    virtual void perform_task() = 0;
+
+    /**
+     * @brief Заполняет матрицу с помощью переданной функции-генератора.
+     * @param generator Функция-генератор, возвращающая элементы матрицы.
+     */
+    void fill(const std::function<T()>& generator) {
+        matrix.fill(generator);
+    }
+
+    /**
+     * @brief Печатает матрицу на экран.
+     */
+    void print() const {
+        matrix.print();
+    }
 };
-
-

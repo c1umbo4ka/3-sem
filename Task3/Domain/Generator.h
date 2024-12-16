@@ -1,20 +1,21 @@
 ﻿#pragma once
 
 /**
- * @brief Абстрактный класс для генерации чисел.
+ * @brief Абстрактный класс генератора элементов.
+ * @tparam T Тип данных для генерации.
  */
-class Generator {
+template <typename T>
+class generator {
 public:
 
     /**
      * @brief Виртуальный деструктор.
      */
-    virtual ~Generator() = default;
+    virtual ~generator() = 0;
 
     /**
-     * @brief Чисто виртуальный метод для генерации числа.
-     * @return Сгенерированное число.
+     * @brief Генерирует элемент типа T.
+     * @return Сгенерированное значение.
      */
-    virtual int generate() = 0;
+    virtual T generate() = 0;
 };
-
