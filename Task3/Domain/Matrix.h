@@ -2,6 +2,7 @@
 #include <vector>
 #include <iostream>
 #include <functional>
+#include <sstream>
 
 /**
  * @brief Класс матрицы
@@ -44,6 +45,12 @@ public:
      * @brief Печатает матрицу на экран.
      */
     void print() const;
+
+    /**
+     * @brief Преобразовать матрицу в строку.
+     * @return Матрица в текстовом формате.
+     */
+    std::string to_string() const;
 
     /**
      * @brief Возвращает строку матрицы по индексу
@@ -119,13 +126,20 @@ void matrix<T>::fill(const std::function<T()>& generator) {
 }
 
 template <typename T>
-void matrix<T>::print() const {
+std::string matrix<T>::to_string() const {
+    std::ostringstream oss;
     for (const auto& row : matrix_data) {
         for (const auto& elem : row) {
-            std::cout << elem << " ";
+            oss << elem << " ";
         }
-        std::cout << std::endl;
+        oss << "\n";  
     }
+    return oss.str();
+}
+
+template <typename T>
+void matrix<T>::print() const {
+    std::cout << to_string();
 }
 
 template <typename T>
