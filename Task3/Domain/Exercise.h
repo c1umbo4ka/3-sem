@@ -22,10 +22,7 @@ public:
     */
     exercise(int rows, int cols) : matrix_data(rows, cols) {}
 
-    /**
-     * @brief Виртуальный деструктор.
-     */
-    virtual ~exercise() = default;
+    
 
     /**
      * @brief Чисто виртуальная функция, которая определяет основную задачу упражнения.
@@ -46,4 +43,9 @@ public:
     void print() const {
         matrix_data.print();
     }
+
+    /**
+     * @brief Виртуальный деструктор.
+     */
+    virtual ~exercise() = default;
 };

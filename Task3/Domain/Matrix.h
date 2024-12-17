@@ -88,6 +88,22 @@ public:
      * @param row Вектор элементов новой строки.
      */
     void insert_row(int index, const std::vector<T>& row);
+
+    /**
+     * @brief Доступ к элементу по индексу.
+     * @param row Номер строки.
+     * @param col Номер столбца.
+     * @return Ссылка на элемент.
+     */
+    T& operator()(int row, int col);
+
+    /**
+     * @brief Доступ к элементу по индексу.
+     * @param row Номер строки.
+     * @param col Номер столбца.
+     * @return Ссылка на элемент.
+     */
+    const T& operator()(int row, int col) const;
 };
 
 template <typename T>
@@ -121,4 +137,14 @@ template <typename T>
 void matrix<T>::insert_row(int index, const std::vector<T>& row) {
     matrix_data.insert(matrix_data.begin() + index, row);
     ++rows;
+}
+
+template <typename T>
+T& matrix<T>::operator()(int row, int col) {
+    return matrix_data[row][col];
+}
+
+template <typename T>
+const T& matrix<T>::operator()(int row, int col) const {
+    return matrix_data[row][col];
 }
