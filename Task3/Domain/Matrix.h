@@ -111,6 +111,21 @@ public:
      * @return Ссылка на элемент.
      */
     const T& operator()(int row, int col) const;
+
+    /**
+         * @brief Оператор доступа к элементам матрицы.
+         * @param row Индекс строки, к которой нужно получить доступ.
+         * @return std::vector<T>& Ссылка на строку матрицы.
+         */
+    std::vector<T>& operator[](int row) { return matrix_data[row]; }
+
+    /**
+     * @brief Оператор доступа к элементам матрицы.
+     * @param row Индекс строки, к которой нужно получить доступ.
+     * @return const std::vector<T>& Константная ссылка на строку матрицы.
+     */
+    const std::vector<T>& operator[](int row) const { return matrix_data[row]; }
+
 };
 
 template <typename T>

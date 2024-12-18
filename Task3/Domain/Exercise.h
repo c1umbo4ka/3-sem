@@ -47,5 +47,5 @@ public:
     /**
      * @brief Виртуальный деструктор.
      */
-    virtual ~exercise() = default;
+    virtual ~exercise(){}
 };
