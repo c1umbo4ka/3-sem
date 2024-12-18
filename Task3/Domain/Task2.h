@@ -39,7 +39,7 @@ private:
     T find_max_element() {
         T max_value = this->matrix_data.get_element(0, 0);
 
-        for (int row = 0; row < this->matrix_data.get_rows(); ++row) {
+        for (size_t row = 0; row < this->matrix_data.get_rows(); ++row) {
             for (int col = 0; col < this->matrix_data.get_cols(); ++col) {
                 T current_value = this->matrix_data.get_element(row, col);
                 if (current_value > max_value) {
