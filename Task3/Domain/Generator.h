@@ -11,7 +11,7 @@ public:
     /**
      * @brief Виртуальный деструктор.
      */
-    virtual ~generator() = 0;
+    virtual ~generator() {}
 
     /**
      * @brief Генерирует элемент типа T.

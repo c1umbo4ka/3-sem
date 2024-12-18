@@ -19,7 +19,12 @@ TEST(matrix_dataTest, SetAndGetElement) {
 
 TEST(matrix_dataTest, FillWithConstantValue) {
     matrix<int> matrix_data(2, 2);
-    matrix_data.fill([]() { return 5; });
+    class ConstantGenerator : public generator<int> {
+    public:
+        int generate() override { return 5; }
+    };
+    ConstantGenerator gen;
+    matrix_data.fill(&gen);
     EXPECT_EQ(matrix_data.get_element(0, 0), 5);
     EXPECT_EQ(matrix_data.get_element(0, 1), 5);
     EXPECT_EQ(matrix_data.get_element(1, 0), 5);
@@ -67,7 +72,12 @@ TEST(i_stream_generatorTest, GeneratesFloatFromInput) {
 
 TEST(Task1Test, ReplacesMaxInColumnWithZero) {
     Task1<int> task(3, 3);
-    task.fill([]() { return 5; });
+    class ConstantGenerator : public generator<int> {
+    public:
+        int generate() override { return 5; }
+    };
+    ConstantGenerator gen;
+    task.fill(&gen);
     task.matrix_data.set_element(1, 0, 42);
     task.perform_task();
     EXPECT_EQ(task.matrix_data.get_element(1, 0), 0);
@@ -75,7 +85,12 @@ TEST(Task1Test, ReplacesMaxInColumnWithZero) {
 
 TEST(Task1Test, HandlesSingleColumnmatrix_data) {
     Task1<int> task(3, 1);
-    task.fill([]() { return 5; });
+    class ConstantGenerator : public generator<int> {
+    public:
+        int generate() override { return 5; }
+    };
+    ConstantGenerator gen;
+    task.fill(&gen);
     task.matrix_data.set_element(2, 0, 99);
     task.perform_task();
     EXPECT_EQ(task.matrix_data.get_element(2, 0), 0);
@@ -83,7 +98,12 @@ TEST(Task1Test, HandlesSingleColumnmatrix_data) {
 
 TEST(Task2Test, InsertsRowAfterRowContainingMaxAbsValue) {
     Task2<int> task(3, 3);
-    task.fill([]() { return 5; });
+    class ConstantGenerator : public generator<int> {
+    public:
+        int generate() override { return 5; }
+    };
+    ConstantGenerator gen;
+    task.fill(&gen);
     task.matrix_data.set_element(1, 1, 100);
     task.perform_task();
     EXPECT_EQ(task.matrix_data.get_rows(), 4);
@@ -92,7 +112,12 @@ TEST(Task2Test, InsertsRowAfterRowContainingMaxAbsValue) {
 
 TEST(Task2Test, HandlesNoMaxAbsValueFound) {
     Task2<int> task(2, 2);
-    task.fill([]() { return 1; });
+    class ConstantGenerator : public generator<int> {
+    public:
+        int generate() override { return 1; }
+    };
+    ConstantGenerator gen;
+    task.fill(&gen);
     task.perform_task();
     EXPECT_EQ(task.matrix_data.get_rows(), 4);
 }

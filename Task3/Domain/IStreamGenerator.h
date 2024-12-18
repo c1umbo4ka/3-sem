@@ -1,13 +1,14 @@
 ﻿#pragma once
 #include <iostream>
 #include <stdexcept>
+#include "Generator.h"
 
 /**
  * @brief Генератор, считывающий значения из входного потока.
  * @tparam T Тип данных, считываемых из потока.
  */
 template <typename T>
-class i_stream_generator {
+class i_stream_generator : public generator<T>{
 private:
 
     /**
@@ -27,7 +28,7 @@ public:
      * @brief Считывает и возвращает значение из потока.
      * @return Считанное значение.
      */
-    T generate() {
+    T generate() override {
         T value;
         input_stream >> value;
         return value;

@@ -1,6 +1,7 @@
 ﻿#pragma once
 #include "Matrix.h"
 #include <functional>
+#include "Generator.h"
 
 /**
  * @brief Абстрактный базовый класс Exercise
@@ -33,8 +34,8 @@ public:
      * @brief Заполняет матрицу с помощью переданной функции-генератора.
      * @param generator Функция-генератор, возвращающая элементы матрицы.
      */
-    void fill(const std::function<T()>& generator) {
-        matrix_data.fill(generator);
+    void fill(generator<T>* gen) {
+        matrix_data.fill(gen);
     }
 
     /**
@@ -47,5 +48,5 @@ public:
     /**
      * @brief Виртуальный деструктор.
      */
-    virtual ~exercise(){}
+    virtual ~exercise() {};
 };

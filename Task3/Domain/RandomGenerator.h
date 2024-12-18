@@ -1,12 +1,13 @@
 ﻿#pragma once
 #include <random>
+#include "Generator.h"
 
 /**
 * @brief Генератор случайных чисел.
 * @tparam T Тип сгенерированных значений.
 */
 template <typename T>
-class random_generator {
+class random_generator : public generator<T> {
 private:
 
     /**
@@ -37,7 +38,7 @@ public:
     * @brief Генерирует случайное значение в заданном диапазоне.
     * @return Случайное значение.
     */
-    T generate() {
+    T generate() override {
         return distribution(generator);
     }
 };

@@ -3,6 +3,7 @@
 #include <iostream>
 #include <functional>
 #include <sstream>
+#include "Generator.h"
 
 /**
  * @brief Класс матрицы
@@ -20,12 +21,12 @@ private:
     /**
      * @brief Количество строк в матрице.
      */
-    int rows;
+    size_t rows;
 
     /**
      * @brief Количество столбцов в матрице.
      */
-    int cols;
+    size_t cols;
 
 public:
     /**
@@ -39,7 +40,7 @@ public:
      * @brief Заполняет матрицу значениями, сгенерированными переданной функцией.
      * @param generator Функция-генератор элементов.
      */
-    void fill(const std::function<T()>& generator);
+    void fill(generator<T>* gen);
 
     /**
      * @brief Печатает матрицу на экран.
@@ -63,13 +64,13 @@ public:
     * @brief Получает количество строк в матрице.
     * @return Количество строк в матрице.
     */
-    int get_rows() const { return rows; }
+    size_t get_rows() const { return rows; }
 
     /**
     * @brief Получает количество столбцов в матрице.
     * @return Количество столбцов в матрице.
     */
-    int get_cols() const { return cols; }
+    size_t get_cols() const { return cols; }
 
     /**
     * @brief Получает элемент матрицы по указанным индексам строки и столбца.
@@ -132,10 +133,10 @@ template <typename T>
 matrix<T>::matrix(int rows, int cols) : rows(rows), cols(cols), matrix_data(rows, std::vector<T>(cols)) {}
 
 template <typename T>
-void matrix<T>::fill(const std::function<T()>& generator) {
+void matrix<T>::fill(generator<T>* gen) {
     for (auto& row : matrix_data) {
         for (auto& elem : row) {
-            elem = generator();
+            elem = gen->generate();
         }
     }
 }

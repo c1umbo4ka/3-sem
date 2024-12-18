@@ -22,11 +22,11 @@ public:
     * @brief Выполняет задачу 1.
     */
     void perform_task() override {
-        for (int col = 0; col < this->matrix_data.get_cols(); ++col) {
-            int max_row = 0;
+        for (size_t col = 0; col < this->matrix_data.get_cols(); ++col) {
+            size_t max_row = 0;
             T max_value = this->matrix_data.get_element(0, col);
 
-            for (int row = 1; row < this->matrix_data.get_rows(); ++row) {
+            for (size_t row = 1; row < this->matrix_data.get_rows(); ++row) {
                 if (this->matrix_data.get_element(row, col) > max_value) {
                     max_value = this->matrix_data.get_element(row, col);
                     max_row = row;
